@@ -1,0 +1,12 @@
+runtime: nodejs8
+tasks: 
+  - name: install libstdc++
+    shell: |-
+      if [ ! -f /code/.fun/root/usr/lib/x86_64-linux-gnu/libstdc++.so.6 ]; then
+        mkdir -p /code/.fun/tmp/archives/
+        curl http://mirrors.ustc.edu.cn/debian/pool/main/g/gcc-6/libstdc++6_6.3.0-18+deb9u1_amd64.deb -o /code/.fun/tmp/archives/libstdc++6_6.3.0-18+deb9u1_amd64.deb
+        bash -c 'for f in $(ls /code/.fun/tmp/archives/*.deb); do dpkg -x $f /code/.fun/root; done;'
+        rm -rf /code/.fun/tmp/archives
+      fi 
+  - name: npm install couchbase
+    shell: npm install 
